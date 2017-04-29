@@ -8,6 +8,6 @@ type alias Position =
 
 
 type alias Error =
-    { status : Int
+    { code : Int
     , message : String
     }
