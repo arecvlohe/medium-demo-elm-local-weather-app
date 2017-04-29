@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="main"></div>
+  <script src="main.js"></script>
+  <script>
+    var node = document.getElementById('main')
+    var app = Elm.Main.embed(node)
+    
+    if (window.navigator.geolocation) {
+      window.navigator.geolocation.getCurrentPosition(success,failure)
+    }
+    
+    function success(position) {
+      const coords = position.coords
+      const latitude = coords.latitude
+      const longitude = coords.longitude
+      app.ports.position.send({ latitude, longitude })
+    }
+    
+    function failure(error) {
+      const code = error.code
+      const message = error.message
+      app.ports.error.send({ code, message })
+    }
+  </script>
+</body>
+</html>
